@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { fetchAllTodos, saveATodo, Todos } = require('./utils');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,6 +13,11 @@ app.use(cors());
 // mongoose.connect(process.env.MONGODB_CONNECTION_STRING)
 mongoose.connect('mongodb+srv://aminarahman01:N1sh4M0ng0@cluster0.utbunmm.mongodb.net/todo-app')
 
+//this endpoint works as a front-end
+// essentially this is a full-stack TODO app now!!
+app.get('/', (req, res) => {
+    return res.sendFile('index.html', { root: path.join(__dirname, 'public') });
+})
 app.get('/todos', async (req, res) => {
     const todoArray = await fetchAllTodos();
     if (todoArray.length === 0) {
