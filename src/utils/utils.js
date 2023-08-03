@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 
-const { User } = require('./user');
-const { Todo } = require('./todo');
+const { User } = require('../schemas/user');
+const { Todo } = require('../schemas/todo');
 
 const fetchAllTodos = async (todoList) => {
     const todos = await Promise.all(
@@ -37,14 +37,7 @@ const createUser = async (req, res) => {
     return res.json({ message: 'User created successfully' })
 }
 
-// middleware
-const verifyUser = async (req, res, next) => {
-    const email = req.headers.email;
-    console.log({ email })
-    const user = await findUser(email);
-    req.user = user;
-    next()
-}
+
 
 const updateTodo = async (req, res) => {
     const todoId = req.params.todoId;
@@ -80,6 +73,5 @@ module.exports = {
     findUser,
     fetchAllTodos,
     createUser,
-    verifyUser,
     updateTodo,
 }
