@@ -4,8 +4,8 @@ const {
     updateTodo,
 } = require('../utils/utils');
 const { verifyUser } = require('../middlewares/myMiddlewares');
-const { Todo } = require('../schemas/todo');
-const { User } = require('../schemas/user');
+const { Todo } = require('../models/todo');
+const { User } = require('../models/user');
 const { editTodo, deleteTodo } = require('../controllers/todoController');
 
 // middlewares

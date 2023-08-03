@@ -1,7 +1,7 @@
 // const mongoose = require('mongoose');
 
-const { User } = require('../schemas/user');
-const { Todo } = require('../schemas/todo');
+const { User } = require('../models/user');
+const { Todo } = require('../models/todo');
 
 const fetchAllTodos = async (todoList) => {
     const todos = await Promise.all(
@@ -36,8 +36,6 @@ const createUser = async (req, res) => {
     newUser.save()
     return res.json({ message: 'User created successfully' })
 }
-
-
 
 const updateTodo = async (req, res) => {
     const todoId = req.params.todoId;
