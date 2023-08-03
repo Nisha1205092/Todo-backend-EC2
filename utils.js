@@ -1,29 +1,7 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-// Define schema for user
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true },
-    email: { type: String, required: true },
-    uid: { type: String, required: true },
-    todoList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Todo' }]
-});
-
-// Define schema for todo
-const todoSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: String,
-    completed: { type: Boolean, required: true },
-    important: { type: Boolean, default: false, required: true },
-    creationDate: { type: Date, default: Date.now, required: true },
-    updatedAt: { type: Date, default: Date.now },
-    deadlineDate: Date,
-    images: { type: [String], default: ['string1', 'string2'] },
-    tags: { type: [String], default: ['personal'] },
-});
-
-// Create models for user and todo
-const User = mongoose.model('User', userSchema);
-const Todo = mongoose.model('Todo', todoSchema);
+const { User } = require('./user');
+const { Todo } = require('./todo');
 
 const fetchAllTodos = async (todoList) => {
     const todos = await Promise.all(
@@ -84,13 +62,13 @@ const updateTodo = async (req, res) => {
     }
 }
 
-// const findUser = async (email) => {
-//     const user = await User.findOne({ email })
-//     if (user) {
-//         return user;
-//     }
-//     return null;
-// }
+const findUser = async (email) => {
+    const user = await User.findOne({ email })
+    if (user) {
+        return user;
+    }
+    return null;
+}
 
 // const saveATodo = async ({ title, completed, description }) => {
 //     const newTodo = new Todo({ title, completed, description })
@@ -99,8 +77,7 @@ const updateTodo = async (req, res) => {
 // }
 
 module.exports = {
-    Todo,
-    User,
+    findUser,
     fetchAllTodos,
     createUser,
     verifyUser,
