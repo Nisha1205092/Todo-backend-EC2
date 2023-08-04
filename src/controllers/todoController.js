@@ -1,11 +1,26 @@
 const {
     updateTodo,
+    fetchAllTodos
 } = require('../utils/utils');
 const {
     verifyUser
 } = require('../middlewares/myMiddlewares');
 const { Todo } = require('../models/todo');
 const { User } = require('../models/user');
+
+const getAllTodos = async (req, res) => {
+    console.log({ user: req.user })
+    if (req.user) {
+        console.log('number of todos', req.user.todoList.length)
+        const todos = await fetchAllTodos(req.user.todoList);
+        return res.json({
+            message: 'user signed in',
+            todos
+        })
+    }
+    return res.status(404).json({ message: 'emailNotFound' })
+    //fetchAllTodos(user)
+}
 
 const editTodo = async (req, res) => {
     // if user email is found
@@ -44,6 +59,7 @@ const deleteTodo = async (req, res) => {
 }
 
 module.exports = {
+    getAllTodos,
     editTodo,
     deleteTodo
 }

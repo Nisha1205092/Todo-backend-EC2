@@ -22,6 +22,12 @@ const fetchAllTodos = async (todoList) => {
 
 const createUser = async (req, res) => {
     const { email, uid } = req.body;
+    if (!email || !uid) {
+        console.log('undefined??', { email, uid })
+        // any of these 'undefined'
+        return res.status(404).json({ message: 'email/uid undefined' })
+    }
+    console.log({ email, uid })
     const username = email.split('@')[0].toUpperCase()
     const user = await User.findOne({ email })
 

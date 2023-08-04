@@ -6,11 +6,14 @@ const {
 const { verifyUser } = require('../middlewares/myMiddlewares');
 const { Todo } = require('../models/todo');
 const { User } = require('../models/user');
-const { editTodo, deleteTodo } = require('../controllers/todoController');
+const { editTodo, deleteTodo, getAllTodos } = require('../controllers/todoController');
 
 // middlewares
 router.use(logger)
 router.use(verifyUser)
+
+// GET all todos
+router.get('/', verifyUser, getAllTodos)
 
 // CREATE todo
 router.post('/', verifyUser, async (req, res) => {
