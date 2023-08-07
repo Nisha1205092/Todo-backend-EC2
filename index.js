@@ -20,5 +20,5 @@ const todoRoutes = require('./src/routes/todo')
 app.use('/user', userRoutes)
 app.use('/user/todo', todoRoutes)
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 app.listen(port, () => console.log(`Server running on ${port}, http://localhost:${port}`));

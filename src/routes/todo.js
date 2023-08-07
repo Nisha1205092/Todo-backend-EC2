@@ -19,14 +19,39 @@ router.get('/', verifyUser, getAllTodos)
 router.post('/', verifyUser, async (req, res) => {
     console.log({ user: req.user })
     if (req.user) {
-        // create a todo
-        const newTodo = new Todo(req.body)
-        await newTodo.save();
-        // add the todoId to the corresponding user's
-        // todoList array
-        req.user.todoList.push(newTodo.id)
-        await req.user.save()
-        return res.json({ message: 'Todo added successfully' })
+
+        try {
+            // create a todo
+            // If tags array is empty or not provided, 
+            // set it to ['personal']
+            const { title, description, completed, tags } = req.body;
+            const tagsArray = tags
+                && Array.isArray(tags)
+                && tags.length > 0
+                ? tags : ['personal'];
+
+            const todoData = {
+                title,
+                description,
+                completed: !!completed, // Convert 'completed' to a boolean if provided
+            };
+
+            // Only add 'tags' to todoData
+            // if 'tagsArray' is not ['personal']
+            if (!tagsArray.includes('personal')) {
+                todoData.tags = tagsArray;
+            }
+            const newTodo = new Todo(req.body)
+            await newTodo.save();
+            // add the todoId to the corresponding user's
+            // todoList array
+            req.user.todoList.push(newTodo.id)
+            await req.user.save()
+            return res.json({ message: 'Todo added successfully' })
+        } catch (error) {
+            console.error('Erro creating todo: ', error.message)
+            res.status(500).json({ error: 'Server Error' })
+        }
     }
     return res.status(404).json({ message: 'emailNotFound' })
 })
