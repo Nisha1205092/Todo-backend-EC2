@@ -12,6 +12,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+my-todo-app.pem
 *.local
 
 # Editor directories and files
