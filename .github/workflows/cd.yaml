@@ -17,7 +17,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
-      run: |
+      run: 
         echo "$SSH_PRIVATE_KEY" > keyfile
         echo "$MONGODB_CONNECTION_STRING" > .env
         chmod 600 keyfile
