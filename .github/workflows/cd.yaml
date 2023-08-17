@@ -16,7 +16,6 @@ jobs:
     - name: SSH and deploy
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        MONGODB_CONNECTION_STRING: ${{ secrets.MONGODB_CONNECTION_STRING }}
       run: 
         echo "$SSH_PRIVATE_KEY" > keyfile
         chmod 600 keyfile
